@@ -8,6 +8,7 @@ import https from 'https'
 import express, { Request } from 'express'
 
 import { google } from 'googleapis'
+import path from 'path'
 google.options({auth: process.env.YT_KEY});
 
 const youtube = google.youtube("v3")
@@ -42,8 +43,8 @@ app.get('/comments', async (req: Request<{}, {}, {}, CommentsQuery>, res) => {
   res.send(result)
 })
 
-const key = fs.readFileSync(__dirname + '/certs/selfsigned.key');
-const cert = fs.readFileSync(__dirname + '/certs/selfsigned.crt');
+const key = fs.readFileSync(path.resolve(__dirname, '../etc/secrets/selfsigned.key'));
+const cert = fs.readFileSync(path.resolve(__dirname, '../etc/secrets/selfsigned.crt'));
 const credentials = {key: key, cert: cert}
 
 const httpsServer = https.createServer(credentials, app);
