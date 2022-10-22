@@ -24,6 +24,10 @@ app.get('/', (req, res) => {
   res.send('Hello!');
 })
 
+app.get('/healthz', (req, res) => {
+  res.sendStatus(200)
+})
+
 app.get('/comments', async (req: Request<{}, {}, {}, CommentsQuery>, res) => {
   const videoId = req.query.videoId
   const filter = req.query.filter
