@@ -4,7 +4,7 @@
   "description": "Backend for youtube-comment-search",
   "main": "build/app.js",
   "scripts": {
-    "build": "tsc",
+    "build": "npx tsc",
     "start": "node build/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
