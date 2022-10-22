@@ -47,8 +47,9 @@ app.get('/comments', async (req: Request<{}, {}, {}, CommentsQuery>, res) => {
 
 const key = process.env.SSL_KEY
 const cert = process.env.CERT
+console.log(key, cert)
 
-if (key == null || cert == null) {
+if (key != null && cert != null) {
   const credentials = {key: key, cert: cert}
   const httpsServer = https.createServer(credentials, app);
   httpsServer.listen(port)
