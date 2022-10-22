@@ -4,10 +4,11 @@
   "description": "Backend for youtube-comment-search",
   "main": "src/app.ts",
   "scripts": {
-    "dev": "yarn run tsc src/app.ts",
+    "dev": "ts-node src/app.ts",
     "install-tsc": "yarn add typescript",
     "build": "yarn run install-tsc && yarn run tsc",
     "start": "node dist/app.js",
+    "serve": "nodemon --exec yarn dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "TippTop",
@@ -21,5 +22,10 @@
   "devDependencies": {
     "@types/express": "^4.17.14",
     "@types/node": "^18.11.3"
+  },
+  "nodemonConfig": {
+    "ignore": ["dist/*"],
+    "watch": ["src/*"],
+    "ext": "ts,json"
   }
 }

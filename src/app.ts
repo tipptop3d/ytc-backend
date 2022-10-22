@@ -1,14 +1,12 @@
 import * as dotenv from 'dotenv'
 dotenv.config()
 
-import fs from 'fs'
 import http from 'http'
 import https from 'https'
 
 import express, { Request } from 'express'
 
 import { google } from 'googleapis'
-import path from 'path'
 google.options({auth: process.env.YT_KEY});
 
 const port = process.env.PORT || 8080
@@ -42,12 +40,11 @@ app.get('/comments', async (req: Request<{}, {}, {}, CommentsQuery>, res) => {
     searchTerms: filter,
     maxResults: 100,
   })
-  res.send(result)
+  res.status(200).send(result)
 })
 
 const key = process.env.SSL_KEY
 const cert = process.env.CERT
-console.log(key, cert)
 
 if (key != null && cert != null) {
   const credentials = {key: key, cert: cert}
