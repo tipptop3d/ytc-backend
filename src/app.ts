@@ -11,6 +11,8 @@ import { google } from 'googleapis'
 import path from 'path'
 google.options({auth: process.env.YT_KEY});
 
+const port = process.env.PORT || 8080
+
 const youtube = google.youtube("v3")
 
 const app = express()
@@ -43,12 +45,16 @@ app.get('/comments', async (req: Request<{}, {}, {}, CommentsQuery>, res) => {
   res.send(result)
 })
 
-const credentials = {key: process.env.SSL_KEY, cert: process.env.CERT}
+const key = process.env.SSL_KEY
+const cert = process.env.CERT
 
-const httpsServer = https.createServer(credentials, app);
-console.log('https://localhost:8843')
-
-httpsServer.listen(8443)
-
-const httpServer = http.createServer(app);
-httpServer.listen(8080)
+if (key == null || cert == null) {
+  const credentials = {key: key, cert: cert}
+  const httpsServer = https.createServer(credentials, app);
+  httpsServer.listen(port)
+  console.log('HTTPS Server started')
+} else {
+  const httpServer = http.createServer(app);
+  httpServer.listen(port)
+  console.log('HTTP Server started')
+}
