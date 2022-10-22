@@ -4,7 +4,8 @@
   "description": "Backend for youtube-comment-search",
   "main": "build/app.js",
   "scripts": {
-    "serve": "npx supervisor build/app.js",
+    "build": "tsc",
+    "start": "node build/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "TippTop",
