@@ -5,6 +5,11 @@ import http from 'http'
 import https from 'https'
 
 import express, { Request } from 'express'
+import cors from 'cors'
+
+var corsOptions = {
+  origin: 'https://youtube.com'
+}
 
 import { google } from 'googleapis'
 google.options({auth: process.env.YT_KEY});
@@ -29,7 +34,7 @@ app.get('/healthz', (req, res) => {
   res.sendStatus(200)
 })
 
-app.get('/comments', async (req: Request<{}, {}, {}, CommentsQuery>, res) => {
+app.get('/comments', cors(corsOptions), async (req: Request<{}, {}, {}, CommentsQuery>, res) => {
   const videoId = req.query.videoId
   const filter = req.query.filter
   const page = req.query.page
