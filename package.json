@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "yarn run tsc src/app.ts",
     "install-tsc": "yarn install typescript",
-    "build": "install-tsc && yarn run tsc",
+    "build": "yarn run install-tsc && yarn run tsc",
     "start": "node dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
