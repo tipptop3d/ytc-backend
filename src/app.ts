@@ -43,9 +43,7 @@ app.get('/comments', async (req: Request<{}, {}, {}, CommentsQuery>, res) => {
   res.send(result)
 })
 
-const key = fs.readFileSync(path.resolve(__dirname, '../etc/secrets/selfsigned.key'));
-const cert = fs.readFileSync(path.resolve(__dirname, '../etc/secrets/selfsigned.crt'));
-const credentials = {key: key, cert: cert}
+const credentials = {key: process.env.SSL_KEY, cert: process.env.CERT}
 
 const httpsServer = https.createServer(credentials, app);
 console.log('https://localhost:8843')
