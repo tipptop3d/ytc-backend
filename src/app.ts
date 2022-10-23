@@ -8,7 +8,7 @@ import express, { Request } from 'express'
 import cors from 'cors'
 
 var corsOptions = {
-  origin: 'https://youtube.com'
+  origin: 'https://www.youtube.com'
 }
 
 import { google } from 'googleapis'
@@ -45,7 +45,8 @@ app.get('/comments', cors(corsOptions), async (req: Request<{}, {}, {}, Comments
     searchTerms: filter,
     maxResults: 100,
   })
-  res.status(200).send(result)
+  const data = await fetch(result.request.responseURL)
+  res.status(200).send(await data.json())
 })
 
 const key = process.env.SSL_KEY
