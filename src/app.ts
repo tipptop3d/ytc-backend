@@ -12,7 +12,7 @@ var corsOptions = {
 }
 
 import { google } from 'googleapis'
-google.options({auth: process.env.YT_KEY});
+google.options({ auth: process.env.YT_KEY });
 
 const port = process.env.PORT || 8080
 
@@ -45,15 +45,17 @@ app.get('/comments', cors(corsOptions), async (req: Request<{}, {}, {}, Comments
     searchTerms: filter,
     maxResults: 100,
   })
-  const data = await fetch(result.request.responseURL)
-  res.status(200).send(await data.json())
+  res.status(result.status)
+  if (result.statusText = 'OK') {
+    res.send(result.data)
+  }
 })
 
 const key = process.env.SSL_KEY
 const cert = process.env.CERT
 
 if (key != null && cert != null) {
-  const credentials = {key: key, cert: cert}
+  const credentials = { key: key, cert: cert }
   const httpsServer = https.createServer(credentials, app);
   httpsServer.listen(port)
   console.log('HTTPS Server started')
